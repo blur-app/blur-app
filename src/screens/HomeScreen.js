@@ -1,7 +1,6 @@
 import React from 'react';
 import {Platform, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {WebBrowser} from 'expo';
-import Post from "../components/Post";
 import {Header} from "react-native-elements";
 
 const dummyData = [
@@ -42,18 +41,7 @@ export default class HomeScreen extends React.Component {
 
   generatePosts() {
     // Not sure where we will be keeping data
-    const PostCards = dummyData.map((item, index) => {
-      return (
-          <Post
-            key={index}
-            id={item.id}
-            title={item.title}
-            text={item.text}
-            {...item}
-          />
-      );
-    });
-    this.setState({PostCards});
+    this.setState({PostCards:  null});
   }
 
   render() {
