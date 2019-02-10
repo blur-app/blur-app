@@ -1,62 +1,78 @@
 import React from 'react';
-import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { WebBrowser } from 'expo';
-import {Button, Card, Icon, Tile} from 'react-native-elements';
+import {Platform, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {WebBrowser} from 'expo';
+import Post from "../components/Post";
+import {Header} from "react-native-elements";
 
-import { MonoText } from '../components/StyledText';
+const dummyData = [
+  {
+    id: 1,
+    title: 'Test Post 1',
+    text: 'Holy Balls'
+  },
+  {
+    id: 2,
+    title: 'Ligma Ligma Ligma',
+    text: 'Rush Tri Lig'
+  },
+  {
+    id: 3,
+    title: 'Copy Pasta',
+    text: 'What the fuck did you just fucking say about me, you little bitch? I\'ll have you know I graduated top of my class in the Navy Seals, and I\'ve been involved in numerous secret raids on Al-Quaeda, and I have over 300 confirmed kills. I am trained in gorilla warfare and I\'m the top sniper in the entire US armed forces. You are nothing to me but just another target. I will wipe you the fuck out with precision the likes of which has never been seen before on this Earth, mark my fucking words. You think you can get away with saying that shit to me over the Internet? Think again, fucker. As we speak I am contacting my secret network of spies across the USA and your IP is being traced right now so you better prepare for the storm, maggot. The storm that wipes out the pathetic little thing you call your life. You\'re fucking dead, kid. I can be anywhere, anytime, and I can kill you in over seven hundred ways, and that\'s just with my bare hands. Not only am I extensively trained in unarmed combat, but I have access to the entire arsenal of the United States Marine Corps and I will use it to its full extent to wipe your miserable ass off the face of the continent, you little shit. If only you could have known what unholy retribution your little "clever" comment was about to bring down upon you, maybe you would have held your fucking tongue. But you couldn\'t, you didn\'t, and now you\'re paying the price, you goddamn idiot. I will shit fury all over you and you will drown in it. You\'re fucking dead, kiddo.'
+  },
+]
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
+  constructor(props) {
+    super(props);
+    console.log(props);
+
+    this.state = {
+      PostCards: null
+    };
+  }
+
+  componentDidMount() {
+    this.generatePosts();
+  }
+
+  generatePosts() {
+    // Not sure where we will be keeping data
+    const PostCards = dummyData.map((item, index) => {
+      return (
+          <Post
+            key={index}
+            id={item.id}
+            title={item.title}
+            text={item.text}
+            {...item}
+          />
+      );
+    });
+    this.setState({PostCards});
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.welcomeImage}
-            />
-          </View>
+        <Header
+          placement="left"
+          leftComponent={{ icon: 'menu', color: '#fff' }}
+          centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+          rightComponent={{ icon: 'add', color: '#fff' }}
+        />
 
-          <View style={styles.getStartedContainer}>
-            <Card
-              title='HELLO WORLD'
-              image={require('../assets/images/robot-prod.png')}>
-              <Text style={{marginBottom: 10}}>
-                The idea with React Native Elements is more about component structure than actual design.
-              </Text>
-              <Button
-                icon={<Icon name='code' color='#ffffff' />}
-                backgroundColor='#03A9F4'
-                buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-                title='VIEW NOW' />
-            </Card>
+        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+
+          <View style={styles.postContainer}>
+            {this.state.PostCards}
           </View>
 
         </ScrollView>
-
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-          </View>
-        </View>
       </View>
     );
   }
@@ -122,9 +138,8 @@ const styles = StyleSheet.create({
     marginTop: 3,
     marginLeft: -10,
   },
-  getStartedContainer: {
+  postContainer: {
     alignItems: 'center',
-    marginHorizontal: 50,
   },
   homeScreenFilename: {
     marginVertical: 7,
