@@ -5,7 +5,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
-    "test": "node ./node_modules/jest/bin/jest.js --watchAll"
+    "test": "node ./node_modules/jest/bin/jest.js --watchAll",
+    "web": "react-scripts start"
   },
   "jest": {
     "preset": "jest-expo"
@@ -15,13 +16,33 @@
     "expo": "^32.0.0",
     "expokit": "32.0.6",
     "react": "16.5.0",
+    "react-art": "^16.8.1",
+    "react-dom": "^16.8.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-elements": "^1.0.0",
-    "react-navigation": "^3.0.9"
+    "react-native-web": "^0.10.0",
+    "react-navigation": "^3.0.9",
+    "react-router-dom": "^4.3.1",
+    "react-router-native": "^4.3.0",
+    "react-scripts": "^2.1.3"
   },
   "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-react-jsx-source": "^6.22.0",
     "babel-preset-expo": "^5.0.0",
-    "jest-expo": "^32.0.0"
+    "flow-bin": "^0.92.1",
+    "jest-expo": "^32.0.0",
+    "react-native-scripts": "^2.0.1",
+    "react-test-renderer": "16.2.0"
   },
-  "private": true
+  "private": true,
+  "resolutions": {
+    "ajv": "6.8.1"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
